@@ -34,7 +34,7 @@ jobs:
         cd OFRP
         git config --global user.name "moshiurrahman167"
         git config --global user.email "moshiurrahman167@github.com"
-        repo init -u https://gitlab.com/OrangeFox/Manifest.git -b fox_12.1 --depth=1
+        repo init -u https://github.com/OrangeFoxRecovery/Manifest.git -b fox_12.1 --depth=1
         repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 
     - name: Clone Device Tree
