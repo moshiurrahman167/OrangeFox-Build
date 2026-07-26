@@ -33,18 +33,15 @@ jobs:
         git config --global user.name "moshiurrahman167"
         git config --global user.email "moshiurrahman167@github.com"
         
-        # Clone OrangeFox official sync script
         mkdir ~/sync
         cd ~/sync
         git clone https://gitlab.com/OrangeFox/sync.git .
-        
-        # Run sync script to fetch source automatically
         ./orangefox_sync.sh --branch 12.1 --path $GITHUB_WORKSPACE/OFRP
 
     - name: Clone Device Tree
       run: |
         cd $GITHUB_WORKSPACE/OFRP
-        git clone https://github.com/moshiurrahman167/android_device_xiaomi_fire.git -b android-12.1 device/xiaomi/fire
+        git clone https://github.com/moshiurrahman167/android_device_xiaomi_fire.git device/xiaomi/fire
 
     - name: Build OrangeFox
       run: |
