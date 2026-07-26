@@ -30,27 +30,25 @@ jobs:
 
     - name: Sync OrangeFox Source
       run: |
-        mkdir OFRP
-        cd OFRP
-        
-        # Git config for bypassing authentication checks
         git config --global user.name "moshiurrahman167"
         git config --global user.email "moshiurrahman167@github.com"
-        git config --global url."https://github.com/".insteadOf git://github.com/
-        git config --global url."https://gitlab.com/".insteadOf git://gitlab.com/
-        git config --global url."https://gitlab.com/".insteadOf git@gitlab.com:
         
-        repo init -u https://gitlab.com/OrangeFox/Manifest.git -b fox_12.1 --depth=1
-        repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+        # Clone OrangeFox official sync script
+        mkdir ~/sync
+        cd ~/sync
+        git clone https://gitlab.com/OrangeFox/sync.git .
+        
+        # Run sync script to fetch source automatically
+        ./orangefox_sync.sh --branch 12.1 --path $GITHUB_WORKSPACE/OFRP
 
     - name: Clone Device Tree
       run: |
-        cd OFRP
+        cd $GITHUB_WORKSPACE/OFRP
         git clone https://github.com/moshiurrahman167/android_device_xiaomi_fire.git -b android-12.1 device/xiaomi/fire
 
     - name: Build OrangeFox
       run: |
-        cd OFRP
+        cd $GITHUB_WORKSPACE/OFRP
         source build/envsetup.sh
         
         export ALLOW_MISSING_DEPENDENCIES=true
